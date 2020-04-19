@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">{{ viewOption }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ viewOption }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container" *ngIf='listNewsPages' style="padding: 0cm;">
+    <div *ngFor="let docs of listNewsPages">
+        <div  style="padding: 0cm;" *ngFor="let news of docs.docs">
+          <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+            <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                  <p>{{news.publishedAt | date:'medium'}} | {{news.author}}</p>
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.description}}
+                </ion-card-subtitle>
+              </ion-card-content>
+            </ion-card>
+          </a>
+        </div>
+      </div>
+    </div>
+</ion-content>

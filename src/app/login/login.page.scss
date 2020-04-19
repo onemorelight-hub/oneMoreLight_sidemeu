@@ -1,0 +1,22 @@
+.login_container {
+    text-align: center;
+    background: indigo;
+    width: 100%;
+    height: 100%;
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+}
+
+.large-title {
+    color: white;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    padding-bottom: 50px;
+  }
+
+  ion-icon {
+    font-size: 70px; //Preferred size here
+    color: white;
+}
