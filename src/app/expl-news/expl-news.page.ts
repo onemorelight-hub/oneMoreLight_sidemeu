@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { NewsService } from '../service/news.service';
 import { ActivatedRoute } from '@angular/router';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { LoadingService } from '../service/loading.service';
 
 @Component({
   selector: 'app-expl-news',
@@ -15,14 +17,34 @@ export class ExplNewsPage implements OnInit {
   newsCurrentPage: number;
   listNewsPages: any =[];
   totalNewsPages: number;
-  options: any = {"page": 1, "limit": 10};
+  options: any = {"page": 2, "limit": 20};
   errMess: any;
   imageWidth: number;
   viewOption: any;
 
-  constructor(private newsService: NewsService, private route : ActivatedRoute) { 
+  broswerOptions : InAppBrowserOptions = {
+    location : 'no',//Or 'no' 
+    hidden : 'no', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls 
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only 
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only 
+    toolbar : 'yes', //iOS only 
+    enableViewportScale : 'no', //iOS only 
+    allowInlineMediaPlayback : 'no',//iOS only 
+    presentationstyle : 'pagesheet',//iOS only 
+    fullscreen : 'yes',//Windows only    
+};
 
-  }
+
+  constructor(private newsService: NewsService,
+     private route : ActivatedRoute ,
+      private inAppBrowser: InAppBrowser,
+      private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.viewOption = this.route.snapshot.data.viewOption;
@@ -40,7 +62,6 @@ export class ExplNewsPage implements OnInit {
       console.log('Failed to get News: error->'+err);
       this.errMess = "Failed to Process";
     })
-// testing cod
   }
 
   async logScrolling($event){
@@ -50,7 +71,6 @@ export class ExplNewsPage implements OnInit {
     }
     const scrollElement = await $event.target.getScrollElement();
   //  console.log({scrollElement});
-
     // minus clientHeight because trigger is scrollTop
     // otherwise you hit the bottom of the page before 
     // the top screen can get to 80% total document height
@@ -61,7 +81,6 @@ export class ExplNewsPage implements OnInit {
     const targetPercent = 95;
     let triggerDepth = ((scrollHeight / 100) * targetPercent);
   //  console.log({triggerDepth});
-
     if(currentScrollDepth > triggerDepth) {
       console.log(`Scrolled to ${targetPercent}%`);
       // this ensures that the event only triggers once
@@ -83,4 +102,33 @@ export class ExplNewsPage implements OnInit {
     }
   }
 
+  method(url){
+    console.log("Method clicked: ",url)
+    let target = "_self";
+    const browser = this.inAppBrowser.create(url,target,this.broswerOptions);
+    this.loadingService.showLoading();     
+    browser.on('loadstart').subscribe((eve) => {
+      this.loadingService.showLoading();     
+    }, err => {
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('loadstop').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('loaderror').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('exit').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+  }
 }

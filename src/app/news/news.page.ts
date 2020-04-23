@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from '../service/news.service';
 import { GoogleNews } from '../models/googleNews';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
-
+import { Platform } from '@ionic/angular'
+import { LoadingService } from '../service/loading.service'; 
 
 @Component({
   selector: 'app-news',
@@ -16,12 +17,13 @@ export class NewsPage implements OnInit {
   innerHeight: number;
   errMess: any;
   viewOption: any;
+  subscribe: any;
 
   options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
+    location : 'no',//Or 'no' 
     hidden : 'no', //Or  'yes'
-    clearcache : 'yes',
-    clearsessioncache : 'yes',
+    clearcache : 'no',
+    clearsessioncache : 'no',
     zoom : 'yes',//Android only ,shows browser zoom controls 
     hardwareback : 'yes',
     mediaPlaybackRequiresUserAction : 'no',
@@ -38,7 +40,20 @@ export class NewsPage implements OnInit {
 
 
   constructor(private newsService: NewsService, private router : Router, private route: ActivatedRoute,
-    private inAppBrowser: InAppBrowser) { }
+    private inAppBrowser: InAppBrowser, private platform: Platform, 
+    private loadingService: LoadingService) { 
+     /* 
+      this.subscribe = this.platform.backButton.subscribeWithPriority(666666,()=>{
+        if(this.constructor.name == "NewsPage"){
+          if(window.confirm("do you want to exit app")){
+            navigator["app"].exitApp();
+          }
+        }
+      })
+      */
+      
+      
+    }
 
   ngOnInit() {
     this.viewOption = this.route.snapshot.data.viewOption;
@@ -66,14 +81,43 @@ export class NewsPage implements OnInit {
 
   onMoreNews(){
     console.log("more news: ",this.viewOption)
-    var path = "expl-"+this.viewOption;
-    console.log("Path: ",path)
+    if(this.viewOption=="Top News"){
+      var path = "expl-"+"News";
+    }else{
+      var path = "expl-"+this.viewOption;
+    }
+    console.log("Path: ",path);
     this.router.navigate([path]);
   }
 
   method(url){
     console.log("Method clicked: ",url)
     let target = "_self";
-    this.inAppBrowser.create(url,target,this.options);
+    const browser = this.inAppBrowser.create(url,target,this.options);
+    this.loadingService.showLoading();     
+    browser.on('loadstart').subscribe((eve) => {
+      this.loadingService.showLoading();     
+    }, err => {
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('loadstop').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('loaderror').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+    
+    browser.on('exit').subscribe(()=>{
+      this.loadingService.stopLoadin();
+    }, err =>{
+      this.loadingService.stopLoadin();
+    })
+    
   }
 }

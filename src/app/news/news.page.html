@@ -37,6 +37,9 @@
         <ion-button size="small" color="primary" (click)="onMoreNews()">Explore</ion-button>
       </div>
   </div>
+  <div *ngIf="errMess">
+    <p>Error: {{errMess}}</p>
+  </div>
 
    </div>
 </ion-content>

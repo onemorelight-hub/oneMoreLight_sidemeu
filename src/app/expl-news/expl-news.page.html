@@ -16,22 +16,25 @@
 
   <div id="container" *ngIf='listNewsPages' style="padding: 0cm;">
     <div *ngFor="let docs of listNewsPages">
-        <div  style="padding: 0cm;" *ngFor="let news of docs.docs">
-          <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
-            <ion-card style="padding: 0cm;">
-              <img src="{{news.urlToImage}}" />
-              <ion-card-content>
-                <ion-card-title>
-                  {{news.title }}
-                  <p>{{news.publishedAt | date:'medium'}} | {{news.author}}</p>
-                </ion-card-title>
-                <ion-card-subtitle>
-                  {{news.description}}
-                </ion-card-subtitle>
-              </ion-card-content>
-            </ion-card>
-          </a>
-        </div>
+      <div  style="padding: 0cm;" *ngFor="let news of docs.docs">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+            <img src="{{news.urlToImage}}" />
+            <ion-card-content>
+              <ion-card-title>
+                {{news.title }}
+                <p>{{news.publishedAt | date:'medium'}} | {{news.author}}</p>
+              </ion-card-title>
+              <ion-card-subtitle>
+                {{news.description}}
+              </ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+        </a>
       </div>
     </div>
+  </div>
+  <div *ngIf="errMess">
+    <p>Error: {{errMess}}</p>
+  </div>
 </ion-content>

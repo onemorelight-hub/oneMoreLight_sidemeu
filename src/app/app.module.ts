@@ -8,13 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NewsService } from './service/news.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-
+import { AuthenticateService } from './service/authenticate.service'
+import { AuthInterceptor } from './service/auth.interceptor';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { LoadingService } from './service/loading.service';
 
 
 
@@ -36,7 +39,15 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     InAppBrowser,
     Facebook,
     GooglePlus,
-    NativeStorage
+    NativeStorage,
+    AuthenticateService,
+    SpinnerDialog,
+    LoadingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
 
   ],
   bootstrap: [AppComponent]

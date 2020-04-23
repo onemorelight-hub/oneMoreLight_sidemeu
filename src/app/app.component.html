@@ -4,24 +4,24 @@
       <ion-content>
           <ion-row style="text-align: end; height: 60px; vertical-align: middle;">
             <ion-col size="medium">
-              <ion-avatar style="width: 35px; height: 35px;">
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              <ion-avatar style="width: 40px; height: 40px;">
+                <img src="{{userData.picture}}">
               </ion-avatar>
             </ion-col>
             <ion-col style="text-align: start; ">
-              <ion-note style="font-size: x-small; padding: 0cm; padding-top: 10px;">Anjan Janavddvddvddddfdfdfdfdfdfddfss</ion-note>
+              <ion-note style="font-size: x-small; padding: 0cm; padding-top: 10px; color: indigo;">{{userData.name}}</ion-note>
 
             </ion-col>
             <ion-col>
-              <ion-title class="pale" style="font-size: small;">One More Light</ion-title>
+              <ion-title class="pale" style="font-size: small; color: blue;">One More Light</ion-title>
               <ion-title class="pale" style="font-size: xx-small; font-style: italic;">Never Stop Learning</ion-title>
 
             </ion-col>
           </ion-row>
       <ion-list id="inbox-list" style="padding: 0cm;">
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="activePath === p.url">
               <ion-icon size="small" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label class="pale" style="font-size: small;">{{ p.title }}</ion-label>
             </ion-item>

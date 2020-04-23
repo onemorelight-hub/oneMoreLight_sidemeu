@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'news/TopNews',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'News' }
+    data: { viewOption: 'Top News' }
   },
   {
     path: 'news/Business',
@@ -46,41 +46,45 @@ const routes: Routes = [
   {
     path: 'expl-News',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Topnews' }
+    data: { viewOption: 'News' }
   },
   {
     path: 'expl-Business',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Business News' }
+    data: { viewOption: 'Business News' }
   },
   {
     path: 'expl-Health',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Health News' }
+    data: { viewOption: 'Health News' }
   },
   {
     path: 'expl-Science',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Science News' }
+    data: { viewOption: 'Science News' }
   },
   {
     path: 'expl-Sports',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Sports News' }
+    data: { viewOption: 'Sports News' }
   },
   {
     path: 'expl-Technology',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Technology News' }
+    data: { viewOption: 'Technology News' }
   },
   {
     path: 'expl-Entertainment',
     loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Explore Entertainment News' }
+    data: { viewOption: 'Entertainment News' }
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
   }
 
 

@@ -3,14 +3,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { apiGatewayUrl } from '../shared/baseUrl' 
 import { catchError } from 'rxjs/operators';
-import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
-  constructor(private httpClient : HttpClient, private processHTTPMsgService: ProcessHTTPMsgService) { }
+  constructor(private httpClient : HttpClient) { }
   data: any;
   getTopNews(viewOption): Observable<any>{
     var url = apiGatewayUrl+ '/news/topnews';
@@ -18,58 +17,58 @@ export class NewsService {
     console.log(url);
 
     switch(viewOption){
-      case "News": 
-      var url = apiGatewayUrl+ '/in/topnews';
+      case "Top News": 
+      var url = apiGatewayUrl+ '/news/in/topnews';
       break;
       case "Business": 
-      var url = apiGatewayUrl+ '/in/businessNews';
+      var url = apiGatewayUrl+ '/news/in/businessNews';
       break;
       case "Health": 
-      var url = apiGatewayUrl+ '/in/healthNews';
+      var url = apiGatewayUrl+ '/news/in/healthNews';
       break;
       case "Sports": 
-      var url = apiGatewayUrl+ '/in/sportsNews';
+      var url = apiGatewayUrl+ '/news/in/sportsNews';
       break;
       case "Science": 
-      var url = apiGatewayUrl+ '/in/scienceNews';
+      var url = apiGatewayUrl+ '/news/in/scienceNews';
       break;
       case "Technology": 
-      var url = apiGatewayUrl+ '/in/technologyNews';
+      var url = apiGatewayUrl+ '/news/in/technologyNews';
       break;
       case "Entertainment": 
-      var url = apiGatewayUrl+ '/in/entertainmentNews';
+      var url = apiGatewayUrl+ '/news/in/entertainmentNews';
       break;
     }
-    return this.httpClient.get(url).pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    return this.httpClient.get(url);
   }
 
   getNews(options, viewOption): Observable<any>{ 
     switch(viewOption){
-      case "Explore Top News": 
-      var url = apiGatewayUrl + '/in/expl-top-news';
+      case "News": 
+      var url = apiGatewayUrl + '/news/in/expl-top-news';
       break;
-      case "Explore Business News": 
-      var url = apiGatewayUrl + '/in/expl-business-news';
+      case "Business News": 
+      var url = apiGatewayUrl + '/news/in/expl-business-news';
       break;
-      case "Explore Health News": 
-      var url = apiGatewayUrl + '/in/expl-health-news';
+      case "Health News": 
+      var url = apiGatewayUrl + '/news/in/expl-health-news';
       break;
-      case "Explore Sports News": 
-      var url = apiGatewayUrl + '/in/expl-sports-news';
+      case "Sports News": 
+      var url = apiGatewayUrl + '/news/in/expl-sports-news';
       break;
-      case "Explore Science News": 
-      var url = apiGatewayUrl + '/in/expl-science-news';
+      case "Science News": 
+      var url = apiGatewayUrl + '/news/in/expl-science-news';
       break;
-      case "Explore Technology News": 
-      var url = apiGatewayUrl + '/in/expl-technology-news';
+      case "Technology News": 
+      var url = apiGatewayUrl + '/news/in/expl-technology-news';
       break;
-      case "Explore Entertainment News": 
-      var url = apiGatewayUrl + '/in/expl-entertainment-news';
+      case "Entertainment News": 
+      var url = apiGatewayUrl + '/news/in/expl-entertainment-news';
       break;
     }
     console.log("getNews--> ", viewOption)
     console.log(url);
     console.log('Checking the options: '+JSON.stringify(options));
-    return this.httpClient.post(url,options).pipe(catchError(error => this.processHTTPMsgService.handleError(error)));
+    return this.httpClient.post(url,options);
   }
 }
