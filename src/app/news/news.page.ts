@@ -137,7 +137,7 @@ export class NewsPage implements OnInit {
       this.errMess =error.error.text;
     }else{
     console.log('error news: '+JSON.stringify(error))
-    alert(JSON.stringify(error));
+   // alert(JSON.stringify(error));
     this.errMess ="Failed to process";
     }
   })

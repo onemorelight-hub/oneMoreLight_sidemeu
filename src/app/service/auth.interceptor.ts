@@ -5,21 +5,21 @@ import { Observable, from } from 'rxjs';
 import { finalize, catchError, tap, switchMap } from 'rxjs/operators';
 import { AuthenticateService } from './authenticate.service'
 import { Router } from '@angular/router';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private inj: Injector, 
     private authenticationService: AuthenticateService,public loadingController: LoadingController,
-    private router: Router,) {}
+    private router: Router, private nativeStorage: NativeStorage,) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const authToken = this.authenticationService.getToken();
-    console.log("Interceptor:-> authToken: " + JSON.stringify(authToken));
+   // alert("Interceptor:-> authToken: " + JSON.stringify(authToken));
     
     if(authToken != undefined){
-      console.log("Interceptor: Token is available")
       const authReq = req.clone({headers: req.headers.set('Authorization', authToken)});
       req = authReq;
     }

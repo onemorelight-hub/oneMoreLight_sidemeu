@@ -164,13 +164,15 @@ export class AuthenticateService {
     this.nativeStorage.remove('oneToken');
     this.nativeStorage.remove('google_user');
     this.nativeStorage.remove('facebook_user');
+    this.token = null;
     this.router.navigate(["/login"]);
   }
   setUserDetails(user){
     this.socialUser.next(user);
   }
-  setToken(data){
+  setToken(data): boolean{
     this.token = data.token;
+    return true;
   }
   getToken(): string{
     return this.token;

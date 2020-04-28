@@ -7,6 +7,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticateService } from './service/authenticate.service'
 import { LoadingService } from './service/loading.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -95,14 +96,13 @@ export class AppComponent implements OnInit {
     private authenticateService: AuthenticateService,
     private loadingService: LoadingService,
   ) {
-      this.initializeApp();
       // Get social user profile
       this.authenticateService.socialUser.subscribe((data)=>{
         this.userData= data;
       });
       this.platform.backButton.subscribe(() =>{
         this.loadingService.stopLoadin();
-        if(this.router.url == "/news/India"){
+        if(this.router.url == "/news/India" || this.router.url == "/login"){
           navigator["app"].exitApp();
         }else{
           this.router.navigateByUrl("/news/India");
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
         } 
       })
   }
-
+  
   initializeApp() {
     this.platform.ready().then(() => {
       this.checkActiveFacebookLogin();
@@ -128,10 +128,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('news/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+    this.initializeApp();
   }
 
   //** Ccheking facebook user is logged in or not */

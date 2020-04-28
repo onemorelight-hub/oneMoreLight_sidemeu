@@ -3,11 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'news/India',
-    pathMatch: 'full'
-  },  
-  {
     path: 'news/India',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
     data: { location: 'India' }
