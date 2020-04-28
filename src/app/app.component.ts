@@ -87,6 +87,7 @@ export class AppComponent implements OnInit {
   //other members
   userData: any;
   activePath = '';
+  isLoggedIn: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -100,6 +101,11 @@ export class AppComponent implements OnInit {
       this.authenticateService.socialUser.subscribe((data)=>{
         this.userData= data;
       });
+
+      this.authenticateService.isLoggedIn.subscribe(data=>{
+        this.isLoggedIn = data;
+      });
+      
       this.platform.backButton.subscribe(() =>{
         this.loadingService.stopLoadin();
         if(this.router.url == "/news/India" || this.router.url == "/login"){
@@ -151,6 +157,7 @@ checkActiveGoogleLogin(){
 checkUserToken(){
       this.nativeStorage.getItem('oneToken').then( data =>{
       this.authenticateService.setToken(data);
+      this.authenticateService.isLoggedIn.next(true);
       this.router.navigate(["/news/India"]);
       }, error =>{
      //   alert(error);

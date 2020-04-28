@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { apiGatewayUrl } from '../shared/baseUrl';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -165,6 +165,7 @@ export class AuthenticateService {
     this.nativeStorage.remove('google_user');
     this.nativeStorage.remove('facebook_user');
     this.token = null;
+    this.socialUser.next(null);
     this.router.navigate(["/login"]);
   }
   setUserDetails(user){
