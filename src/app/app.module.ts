@@ -18,7 +18,7 @@ import { AuthenticateService } from './service/authenticate.service'
 import { AuthInterceptor } from './service/auth.interceptor';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 import { LoadingService } from './service/loading.service';
-
+import { CatagoryService } from './service/catagory.service';
 
 
 @NgModule({
@@ -43,6 +43,7 @@ import { LoadingService } from './service/loading.service';
     AuthenticateService,
     SpinnerDialog,
     LoadingService,
+    CatagoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

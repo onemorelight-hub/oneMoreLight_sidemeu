@@ -1,29 +1,33 @@
+/*
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from '../service/news.service';
 import { GoogleNews } from '../models/googleNews';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 import { LoadingService } from '../service/loading.service'; 
+import { LoactionService } from '../service/loaction.service';
+import { Location } from '../shared/locationMap';
 import { NavController } from '@ionic/angular';
-import { Catagories } from '../shared/catagories';
-import { CatagoryService } from '../service/catagory.service';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.page.html',
-  styleUrls: ['./news.page.scss'],
+  selector: 'app-toogle-news',
+  templateUrl: './toogle-news.page.html',
+  styleUrls: ['./toogle-news.page.scss'],
 })
-export class NewsPage implements OnInit {
+export class ToogleNewsPage implements OnInit {
   topNews: GoogleNews;
+  innerWidth: number;
+  innerHeight: number;
   errMess: any;
-  selectedCatagory: string;
-  catagories = Catagories;
+  viewOption: any;
+  subscribe: any;
+  currentLocation: any;
+  countries = Location;
+
   // explore news 
-  listNewsPages: any =[];
-
   newsCurrentPage: number;
+  listNewsPages: any =[];
   totalNewsPages: number;
-
   options: any = {"page": 2, "limit": 20};
 
   browserOptions : InAppBrowserOptions = {
@@ -43,21 +47,20 @@ export class NewsPage implements OnInit {
     presentationstyle : 'pagesheet',//iOS only 
     fullscreen : 'yes',//Windows only    
 };
-  location: any;
 
   constructor(private newsService: NewsService, private router : Router, private route: ActivatedRoute,
     private inAppBrowser: InAppBrowser, private loadingService: LoadingService, 
-    private catagoryService: CatagoryService, public navCtrl: NavController ) {
-      this.catagoryService.catagory.subscribe((data)=>{
-        this.selectedCatagory = data;
+    private loactionService: LoactionService, public navCtrl: NavController ) {
+      this.loactionService.currentLocation.subscribe((data)=>{
+        this.currentLocation = data;
       })
       this.newsCurrentPage = 1;
-      this.totalNewsPages =2;
+      
      }
   
   ngOnInit() {
-    this.location = this.route.snapshot.data.location;
-    console.log("View option; ", this.location);
+    this.viewOption = this.route.snapshot.data.viewOption;
+    console.log("View option; ", this.viewOption);
     this.getTopNews();
   }
 
@@ -91,38 +94,39 @@ export class NewsPage implements OnInit {
   }
 
   segmentChanged(catagory){
-    this.catagoryService.catagory.next(catagory.detail.value);
-    this.resetAll()
-    this.getTopNews();
+  this.loactionService.currentLocation.next(catagory.detail.value);
+  if(this.router.url !=  '/news/TopNews'){
+    this.router.navigate(['/news/TopNews']);
+  }else{
+    this.router.navigate(['/toogle-news']);
+  }
 }
 
-// explore news implementation 
+  // explore news implementation 
   loadData(event) {
-      this.getMoreNews(event);     
+      this.getMoreNews();     
+      event.target.complete();
   }
- getMoreNews(event){
+ getMoreNews(){
   this.options.page = this.newsCurrentPage+1;
-  if(this.totalNewsPages>=this.newsCurrentPage){
-    this.newsService.getNews(this.options, this.location).subscribe((data)=>{
+  if(this.totalNewsPages>this.newsCurrentPage){
+    this.newsService.getNews(this.options, this.viewOption).subscribe((data)=>{
       this.listNewsPages.push(data);
       this.totalNewsPages=JSON.parse(JSON.stringify(data)).pages;
       this.newsCurrentPage=JSON.parse(JSON.stringify(data)).page;
       console.log("scroll data, totalPage: "+this.totalNewsPages);
       console.log("scroll data, currentPage: "+this.newsCurrentPage);
       console.log("scroll data: "+JSON.stringify(this.listNewsPages));
-      event.target.complete();
-
     },err=>{
+      console.log('Failed to get all videos');
       this.errMess = "Failed to Process";
-      event.target.complete();
+      alert("error")
     })
-  }else{
-    event.target.complete();
   }
  }
 
  getTopNews(){
-  this.newsService.getTopNews(this.location).subscribe((res)=>{
+  this.newsService.getTopNews(this.viewOption).subscribe((res)=>{
     console.log('top News: '+JSON.stringify(res));
     console.log(res.status)
     this.topNews=res;
@@ -137,25 +141,11 @@ export class NewsPage implements OnInit {
       this.errMess =error.error.text;
     }else{
     console.log('error news: '+JSON.stringify(error))
-    alert(JSON.stringify(error));
     this.errMess ="Failed to process";
     }
   })
  }
 
- resetAll(){
-  this.errMess = null;
-  this.topNews = null;
-  this.listNewsPages = [];
-  this.newsCurrentPage = 1;
-  this.totalNewsPages =2;
- }
-
- getPostRelativeTime(postDate): any{
-  let now = new Date();
-  let post =new Date(postDate);
-  var diff = +now.getHours - +post.getHours;
-  return diff;
- }
-
 }
+
+*/

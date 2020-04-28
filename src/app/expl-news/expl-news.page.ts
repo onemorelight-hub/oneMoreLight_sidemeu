@@ -54,10 +54,6 @@ export class ExplNewsPage implements OnInit {
       this.listNewsPages.push(data);
       this.totalNewsPages=JSON.parse(JSON.stringify(data)).pages;
       this.newsCurrentPage=JSON.parse(JSON.stringify(data)).page;
-      console.log('init home News: '+JSON.stringify(data));
-      console.log("scroll data, totalPage: "+this.totalNewsPages);
-      console.log("scroll data, currentPage: "+this.newsCurrentPage);
-      console.log("scroll data: "+JSON.stringify(this.listNewsPages));
     },err=>{
       console.log('Failed to get News: error->'+err);
       this.errMess = "Failed to Process";
@@ -78,7 +74,7 @@ export class ExplNewsPage implements OnInit {
    // console.log({scrollHeight});
     const currentScrollDepth = $event.detail.scrollTop;
    // console.log({currentScrollDepth});
-    const targetPercent = 95;
+    const targetPercent = 100;
     let triggerDepth = ((scrollHeight / 100) * targetPercent);
   //  console.log({triggerDepth});
     if(currentScrollDepth > triggerDepth) {
@@ -91,7 +87,6 @@ export class ExplNewsPage implements OnInit {
         this.listNewsPages.push(data);
         this.totalNewsPages=JSON.parse(JSON.stringify(data)).pages;
         this.newsCurrentPage=JSON.parse(JSON.stringify(data)).page;
-        console.log('init home News: '+JSON.stringify(data));
         console.log("scroll data, totalPage: "+this.totalNewsPages);
         console.log("scroll data, currentPage: "+this.newsCurrentPage);
         console.log("scroll data: "+JSON.stringify(this.listNewsPages));

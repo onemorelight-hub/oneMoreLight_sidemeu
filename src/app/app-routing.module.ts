@@ -4,79 +4,58 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'news/TopNews',
+    redirectTo: 'news/India',
     pathMatch: 'full'
   },  
   {
-    path: 'news/TopNews',
+    path: 'news/India',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Top News' }
+    data: { location: 'India' }
   },
   {
-    path: 'news/Business',
+    path: 'news/USA',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Business' }
+    data: { location: 'USA' }
   },
   {
-    path: 'news/Health',
+    path: 'news/UK',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Health' }
+    data: { location: 'UK' }
   },
   {
-    path: 'news/Sports',
+    path: 'news/Australia',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Sports' }
+    data: { location: 'Australia' }
   },
   {
-    path: 'news/Science',
+    path: 'news/Canada',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Science' }
+    data: { location: 'Canada' }
   },
   {
-    path: 'news/Technology',
+    path: 'news/Ireland',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Technology' }
+    data: { location: 'Ireland' }
   },
   {
-    path: 'news/Entertainment',
+    path: 'news/Malaysia',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
-    data: { viewOption: 'Entertainment' },
-  },
-  //**    */
-  {
-    path: 'expl-News',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'News' }
+    data: { location: 'Malaysia' }
   },
   {
-    path: 'expl-Business',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Business News' }
+    path: 'news/NewZealand',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
+    data: { location: 'New Zealand' },
   },
   {
-    path: 'expl-Health',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Health News' }
+    path: 'news/SaudiArabia',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
+    data: { location: 'Saudi Arabia' },
   },
   {
-    path: 'expl-Science',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Science News' }
-  },
-  {
-    path: 'expl-Sports',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Sports News' }
-  },
-  {
-    path: 'expl-Technology',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Technology News' }
-  },
-  {
-    path: 'expl-Entertainment',
-    loadChildren: () => import('./expl-news/expl-news.module').then( m => m.ExplNewsPageModule),
-    data: { viewOption: 'Entertainment News' }
+    path: 'news/SouthAfrica',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule),
+    data: { location: 'South Africa' },
   },
   {
     path: 'login',
@@ -85,9 +64,7 @@ const routes: Routes = [
   {
     path: 'contact',
     loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
-  }
-
-
+  },
 ];
 
 @NgModule({

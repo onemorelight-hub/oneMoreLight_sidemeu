@@ -3,43 +3,220 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">{{ viewOption }}</ion-title>
+    <ion-title color="primary">{{ location }}  -  {{ selectedCatagory }} News</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{ viewOption }}</ion-title>
+      <ion-title size="large">{{ location }}</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <ion-segment [(ngModel)]="selectedCatagory" scrollable (ionChange)="segmentChanged($event)" value={{selectedCatagory}}>
+    <ion-segment-button *ngFor="let catagory of catagories" value={{catagory}}>
+      <ion-label>{{catagory}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
   <div id="container">
+    <div [ngSwitch]="selectedCatagory">
+      
+      <div *ngSwitchCase="'Top'">
+        <div *ngIf="topNews" style="padding: 0cm;">
+          <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+          <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+            <ion-card style="padding: 0cm;">
+                <img src="{{news.urlToImage}}" />
+                <ion-card-content>
+                  <ion-card-title>
+                    {{news.title }}
+                  </ion-card-title>
+                  <ion-card-subtitle>
+                    {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                  </ion-card-subtitle>
+                  <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+                </ion-card-content>
+            </ion-card>
+            </a>
+          </div>
+        </div>
+     
+    <!-- Explore news end-->
+      </div>
+      <!--  -->
+      <div *ngSwitchCase="'Business'">
+        <div *ngIf="topNews" style="padding: 0cm;">
+          <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+          <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+            <ion-card style="padding: 0cm;">
+                <img src="{{news.urlToImage}}" />
+                <ion-card-content>
+                  <ion-card-title>
+                    {{news.title }}
+                  </ion-card-title>
+                  <ion-card-subtitle>
+                    {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                  </ion-card-subtitle>
+                  <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+                </ion-card-content>
+            </ion-card>
+            </a>
+          </div>
+      </div>
+    
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="'Health'">
+      <div *ngIf="topNews" style="padding: 0cm;">
+        <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                </ion-card-subtitle>
+                <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+              </ion-card-content>
+          </ion-card>
+          </a>
+        </div>
+      </div>
+    
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="'Science'">
+      <div *ngIf="topNews" style="padding: 0cm;">
+        <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                </ion-card-subtitle>
+                <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+              </ion-card-content>
+          </ion-card>
+          </a>
+        </div>
+      </div>
+    
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="'Sports'">
+      <div *ngIf="topNews" style="padding: 0cm;">
+        <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                </ion-card-subtitle>
+                <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+              </ion-card-content>
+          </ion-card>
+          </a>
+        </div>
+      </div>
+     
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="'Technology'">
+      <div *ngIf="topNews" style="padding: 0cm;">
+        <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                </ion-card-subtitle>
+                <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+              </ion-card-content>
+          </ion-card>
+          </a>
+        </div>
+      </div>
+     
+    </div>
+    <!--  -->
+    <div *ngSwitchCase="'Entertainment'">
+      <div *ngIf="topNews" style="padding: 0cm;">
+        <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
+        <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+          <ion-card style="padding: 0cm;">
+              <img src="{{news.urlToImage}}" />
+              <ion-card-content>
+                <ion-card-title>
+                  {{news.title }}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+                </ion-card-subtitle>
+                <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+              </ion-card-content>
+          </ion-card>
+          </a>
+        </div>
+      </div>
+    
+    </div>
+    
+  <!---->  
 
-    <div *ngIf="topNews" style="padding: 0cm;">
-      <div no-margin style="padding: 0cm;" *ngFor="let news of topNews.articles">
-       <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
+    <!-- explore news implementation-->
+    <div *ngFor="let docs of listNewsPages">
+    <div  style="padding: 0cm;" *ngFor="let news of docs.docs">
+      <a color="primary" (click)="method(news.url)" style="padding: 0cm;">
         <ion-card style="padding: 0cm;">
-            <img src="{{news.urlToImage}}" />
-            <ion-card-content>
-              <ion-card-title>
-                {{news.title }}
-                <p>{{news.publishedAt | date:'medium'}} | {{news.author}}</p>
-              </ion-card-title>
-              <ion-card-subtitle>
-                {{news.description}}
-              </ion-card-subtitle>
-            </ion-card-content>
+          <img src="{{news.urlToImage}}" />
+          <ion-card-content>
+            <ion-card-title>
+              {{news.title }}
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{news.publishedAt | date:'mediumDate'}} {{news.publishedAt | date:'shortTime'}} | {{news.author}}
+            </ion-card-subtitle>
+            <ion-text text-wrap color="dark" size="medium" > {{news.description}}</ion-text>
+          </ion-card-content>
         </ion-card>
       </a>
-        </div>
-        <div style="text-align: center;">
-        <ion-button size="small" color="primary" (click)="onMoreNews()">Explore</ion-button>
-      </div>
+    </div>
   </div>
-  <div *ngIf="errMess">
+    
+    <!-- Infinite loading-->
+    <ion-infinite-scroll threshold="100%" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!-- Expolre News End-->
+
+  </div>
+  <!---->
+  <div class="spin" [hidden]="topNews || errMess">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <!-- End-->
+  <div *ngIf="errMess" [hidden]="topNews || listNewsPages.length > 0 ">
     <p>Error: {{errMess}}</p>
   </div>
-
-   </div>
+</div>
 </ion-content>

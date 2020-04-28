@@ -23,7 +23,8 @@ export class AuthInterceptor implements HttpInterceptor {
       const authReq = req.clone({headers: req.headers.set('Authorization', authToken)});
       req = authReq;
     }
-        
+    /*
+    // added loading in the every HTTP request
     return from(this.loadingController.create())
 		.pipe(
 			tap((loading) => {
@@ -50,7 +51,13 @@ export class AuthInterceptor implements HttpInterceptor {
 					})
 				);
 			})
-		);
+    );
+    
+    */
+
+    // Without loading in the HTTP request
+    return next.handle(req);
+
   }
 
 }

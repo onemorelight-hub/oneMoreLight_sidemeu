@@ -65,7 +65,7 @@ export class AuthenticateService {
           this.isLoggedIn.next(true);
           this.nativeStorage.setItem('oneToken', data)
           this.setToken(data);
-          this.router.navigate(["/news/TopNews"]);
+          this.router.navigate(["/news/India"]);
           loading.dismiss();
         },
         error => {
@@ -133,7 +133,7 @@ export class AuthenticateService {
        // alert("token received "+JSON.stringify(data))
         this.nativeStorage.setItem('oneToken', data)
         this.setToken(data);
-        this.router.navigate(["/news/TopNews"]);
+        this.router.navigate(["/news/India"]);
         loading.dismiss();
       },
       error => {
